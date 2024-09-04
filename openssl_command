@@ -1,0 +1,40 @@
+Чтобы переформатировать файлы сертификатов в формат PEM, можно использовать команду openssl. Вот как можно преобразовать файлы разных форматов в .pem:
+
+1. Преобразование .crt или .cer в .pem
+Если у вас есть сертификат в формате .crt или .cer, вы можете преобразовать его в .pem с помощью следующей команды:
+
+openssl x509 -in your_certificate.crt -out your_certificate.pem -outform PEM
+
+2. Преобразование .p7b в .pem
+Если у вас есть сертификат в формате .p7b, вы можете преобразовать его в .pem:
+
+openssl pkcs7 -print_certs -in your_certificate.p7b -out your_certificate.pem
+
+3. Преобразование .pfx или .p12 в .pem
+Если у вас есть файл в формате .pfx или .p12 (например, содержащий закрытый ключ и сертификаты), вы можете использовать следующую команду для извлечения ключа и сертификатов в формате .pem:
+
+openssl pkcs12 -in your_certificate.pfx -clcerts -nokeys -out your_certificate.pem
+
+openssl pkcs12 -in your_certificate.pfx -nocerts -out private_key.pem -nodes
+
+4. Преобразование ключа .key в .pem
+Если у вас есть закрытый ключ в формате .key, вы можете преобразовать его в .pem:
+
+openssl rsa -in your_key.key -out your_key.pem
+
+5. Проверка результата
+После выполнения команд можно проверить содержимое .pem файла с помощью текстового редактора или команды:
+
+
+cat your_certificate.pem
+Каждый .pem файл должен содержать блоки, которые выглядят следующим образом:
+
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+
+Или для закрытых ключей:
+
+-----BEGIN PRIVATE KEY-----
+...
+-----END PRIVATE KEY-----
